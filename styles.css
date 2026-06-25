@@ -1354,9 +1354,8 @@ body.home-primed .ticker__track { animation-play-state: paused; }
   height: 26px;
   margin: 0 15px;
   flex-shrink: 0;
-  background-color: #79a9df;
-  -webkit-mask: url("./assets/frement_logo_bw.svg") center / contain no-repeat;
-  mask: url("./assets/frement_logo_bw.svg") center / contain no-repeat;
+  object-fit: contain;
+  filter: brightness(0) saturate(100%) invert(73%) sepia(21%) saturate(1095%) hue-rotate(183deg) brightness(94%) contrast(88%);
 }
 @keyframes ticker { to { transform: translateX(-50%); } }
 
