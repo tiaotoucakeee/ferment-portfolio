@@ -1,0 +1,20 @@
+{
+  "desk": {
+    "left_pct": 0,
+    "top_pct": 44,
+    "width_pct": 34,
+    "height_pct": 56
+  },
+  "counter": {
+    "left_pct": 68.26,
+    "top_pct": 48.44,
+    "width_pct": 31.74,
+    "height_pct": 47.74
+  },
+  "board": {
+    "left_pct": 83.89,
+    "top_pct": 14.06,
+    "width_pct": 14.45,
+    "height_pct": 35.94
+  }
+}

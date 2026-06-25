@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="ferment, illustration, posters and visual design by XuZiqi." />
+    <title>ferment, XuZiqi Portfolio</title>
+    <link rel="icon" href="./assets/bread.png" type="image/png" />
+    <link rel="apple-touch-icon" href="./assets/bread.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Fredoka:wght@500;600;700&family=Outfit:wght@600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body class="is-home-only">
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="ferment, back to home">
+        <img class="brand__mark" src="./assets/frement_logo_bw.svg" alt="" aria-hidden="true" width="132" height="41" decoding="async" />
+        <img class="brand__anim" src="./assets/ferment-anim.webp" alt="" aria-hidden="true" />
+      </a>
+      <nav class="site-header__nav" aria-label="Primary navigation">
+        <a class="nav-item" href="#about"><span class="nav-jump" aria-hidden="true"><span>a</span><span>b</span><span>o</span><span>u</span><span>t</span></span><span class="visually-hidden">about</span></a>
+        <a class="nav-item" href="#work"><span class="nav-jump" aria-hidden="true"><span>w</span><span>o</span><span>r</span><span>k</span></span><span class="visually-hidden">work</span></a>
+        <a class="nav-item" href="#contact"><span class="nav-jump" aria-hidden="true"><span>i</span><span>m</span><span>p</span><span>l</span><span>e</span><span>m</span><span>e</span><span>n</span><span>t</span></span><span class="visually-hidden">implement</span></a>
+      </nav>
+    </header>
+
+    <div class="menu" id="menu">
+      <div class="menu__backdrop" id="menuBackdrop" aria-hidden="true"></div>
+
+      <div class="menu__card" id="menuCard" role="dialog" aria-modal="true" aria-label="Site menu">
+        <button class="menu__bar" id="menuOpen" type="button" aria-label="open menu" aria-expanded="false">
+          <span class="menu__label" aria-hidden="true"><span>m</span><span>e</span><span>n</span><span>u</span></span>
+        </button>
+
+        <button class="menu__close" id="menuClose" type="button" aria-label="close menu">
+          <span>close</span><span class="menu__x" aria-hidden="true">✕</span>
+        </button>
+
+        <nav class="menu__links" aria-label="Menu">
+          <a href="#work"><span class="menu__bullet" aria-hidden="true"></span><span class="menu__txt">work</span></a>
+          <a href="#about"><span class="menu__bullet" aria-hidden="true"></span><span class="menu__txt">about</span></a>
+          <a href="#contact"><span class="menu__bullet" aria-hidden="true"></span><span class="menu__txt">implement</span></a>
+        </nav>
+
+        <div class="menu__foot">
+          <a class="menu__email" href="mailto:hello@ferment.studio">hello@ferment.studio</a>
+          <div class="menu__social">
+            <a href="#" aria-label="Instagram">Ig</a>
+            <a href="#" aria-label="X">X</a>
+            <a href="#" aria-label="Behance">Be</a>
+            <a href="#" aria-label="LinkedIn">In</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <main id="top">
+      <section class="hero-ferment">
+        <div class="hero-bg-dots" id="heroBgDots" aria-hidden="true"></div>
+        <canvas class="hero-bg-particles" id="heroBgParticles" aria-hidden="true"></canvas>
+        <div class="hero-home" id="heroHome">
+
+        <h1 class="visually-hidden">ferment, XuZiqi&rsquo;s Bakery Portfolio</h1>
+
+        <div class="hero-words" aria-hidden="true">
+          <div class="hero-words__marquee">
+            <div class="hero-words__row hero-words__row--main">
+              <div class="hero-words__track">
+                <div class="hero-words__chunk">
+                  <span>ferment</span><span>ferment</span><span>ferment</span><span>ferment</span><span>ferment</span><span>ferment</span>
+                </div>
+                <div class="hero-words__chunk">
+                  <span>ferment</span><span>ferment</span><span>ferment</span><span>ferment</span><span>ferment</span><span>ferment</span>
+                </div>
+              </div>
+            </div>
+            <div class="hero-words__row hero-words__row--sub">
+              <div class="hero-words__track hero-words__track--rev">
+                <div class="hero-words__chunk">
+                  <span>XuZiqi&rsquo;s Bakery Portfolio</span><span>✦</span>
+                  <span>XuZiqi&rsquo;s Bakery Portfolio</span><span>✦</span>
+                  <span>XuZiqi&rsquo;s Bakery Portfolio</span><span>✦</span>
+                  <span>XuZiqi&rsquo;s Bakery Portfolio</span><span>✦</span>
+                </div>
+                <div class="hero-words__chunk">
+                  <span>XuZiqi&rsquo;s Bakery Portfolio</span><span>✦</span>
+                  <span>XuZiqi&rsquo;s Bakery Portfolio</span><span>✦</span>
+                  <span>XuZiqi&rsquo;s Bakery Portfolio</span><span>✦</span>
+                  <span>XuZiqi&rsquo;s Bakery Portfolio</span><span>✦</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-bakery-deco" aria-hidden="true">
+          <img class="hero-bakery-deco__item hero-bakery-deco__item--lamp" src="./assets/bakery/sticker-lamp.png" alt="" />
+          <img class="hero-bakery-deco__item hero-bakery-deco__item--shelf-left" src="./assets/bakery/sticker-shelf-left.png" alt="" />
+          <img class="hero-bakery-deco__item hero-bakery-deco__item--display" src="./assets/bakery/sticker-display.png" alt="" />
+          <img class="hero-bakery-deco__item hero-bakery-deco__item--plant" src="./assets/bakery/sticker-plant.png" alt="" />
+          <img class="hero-bakery-deco__item hero-bakery-deco__item--shelf-right" src="./assets/bakery/sticker-shelf-right.png" alt="" />
+          <img class="hero-bakery-deco__item hero-bakery-deco__item--sign" src="./assets/bakery/sticker-sign.png" alt="" />
+          <img class="hero-bakery-deco__item hero-bakery-deco__item--apron" src="./assets/bakery/sticker-apron.png" alt="" />
+          <img class="hero-bakery-deco__item hero-bakery-deco__item--mitt" src="./assets/bakery/sticker-mitt.png" alt="" />
+          <img class="hero-bakery-deco__item hero-bakery-deco__item--cafe" src="./assets/bakery/sticker-cafe.png" alt="" />
+          <img class="hero-bakery-deco__item hero-bakery-deco__item--oven" src="./assets/bakery/sticker-oven.png" alt="" />
+        </div>
+
+        <div class="bread-wrap" id="breadWrap">
+          <span class="bread-ground" aria-hidden="true"></span>
+          <button class="bread-hit" id="breadHit" type="button" aria-label="长按切换面包表情">
+            <div class="bread-pixel__frame">
+              <img
+                class="bread-pixel__img bread-pixel__img--default is-visible"
+                src="./assets/bread.png"
+                alt="Ferment 面包吉祥物"
+              />
+              <img
+                class="bread-pixel__img bread-pixel__img--expr"
+                src="./assets/bread-kiss.png"
+                alt=""
+                aria-hidden="true"
+              />
+              <img
+                class="bread-pixel__img bread-pixel__img--expr"
+                src="./assets/bread-smirk.png"
+                alt=""
+                aria-hidden="true"
+              />
+              <img
+                class="bread-pixel__img bread-pixel__img--expr"
+                src="./assets/bread-silly.png"
+                alt=""
+                aria-hidden="true"
+              />
+              <img
+                class="bread-pixel__img bread-pixel__img--expr"
+                src="./assets/bread-tongue.png"
+                alt=""
+                aria-hidden="true"
+              />
+            </div>
+          </button>
+        </div>
+
+        <div class="ticker" aria-hidden="true">
+          <div class="ticker__track">
+            <img class="tk-logo" src="./assets/frement_logo_bw.svg" alt="" width="86" height="26" decoding="async" /><i>✦</i><em>XuZiqi</em><i>✦</i>
+            <img class="tk-logo" src="./assets/frement_logo_bw.svg" alt="" width="86" height="26" decoding="async" /><i>✦</i><em>XuZiqi</em><i>✦</i>
+            <img class="tk-logo" src="./assets/frement_logo_bw.svg" alt="" width="86" height="26" decoding="async" /><i>✦</i><em>XuZiqi</em><i>✦</i>
+            <img class="tk-logo" src="./assets/frement_logo_bw.svg" alt="" width="86" height="26" decoding="async" /><i>✦</i><em>XuZiqi</em><i>✦</i>
+            <img class="tk-logo" src="./assets/frement_logo_bw.svg" alt="" width="86" height="26" decoding="async" /><i>✦</i><em>XuZiqi</em><i>✦</i>
+            <img class="tk-logo" src="./assets/frement_logo_bw.svg" alt="" width="86" height="26" decoding="async" /><i>✦</i><em>XuZiqi</em><i>✦</i>
+            <img class="tk-logo" src="./assets/frement_logo_bw.svg" alt="" width="86" height="26" decoding="async" /><i>✦</i><em>XuZiqi</em><i>✦</i>
+            <img class="tk-logo" src="./assets/frement_logo_bw.svg" alt="" width="86" height="26" decoding="async" /><i>✦</i><em>XuZiqi</em><i>✦</i>
+          </div>
+        </div>
+        </div>
+
+        <div class="hero-placeholder" id="heroPlaceholder" aria-hidden="true">
+          <div class="hero-scene">
+            <div class="hero-scene__stage">
+              <img
+                class="hero-scene__bg"
+                src="./assets/hero-scene-bg.png"
+                alt="Ferment 面包工作室室内场景"
+                width="1024"
+                height="576"
+                decoding="async"
+              />
+              <button type="button" class="hero-scene__prop hero-scene__prop--desk" aria-label="Work">
+                <span class="hero-scene__prop-art">
+                  <img class="hero-scene__prop-img hero-scene__prop-img--default" src="./assets/hero-prop-desk.png" alt="" decoding="async" />
+                  <img class="hero-scene__prop-img hero-scene__prop-img--halftone" src="./assets/hero-prop-desk-halftone.png" alt="" decoding="async" />
+                </span>
+              </button>
+              <button type="button" class="hero-scene__prop hero-scene__prop--counter" aria-label="About Me">
+                <span class="hero-scene__prop-art">
+                  <img class="hero-scene__prop-img hero-scene__prop-img--default" src="./assets/hero-prop-counter.png" alt="" decoding="async" />
+                  <img class="hero-scene__prop-img hero-scene__prop-img--halftone" src="./assets/hero-prop-counter-halftone.png" alt="" decoding="async" />
+                </span>
+              </button>
+              <button type="button" class="hero-scene__prop hero-scene__prop--board" aria-label="Implementation">
+                <span class="hero-scene__prop-art">
+                  <img class="hero-scene__prop-img hero-scene__prop-img--default" src="./assets/hero-prop-board.png" alt="" decoding="async" />
+                  <img class="hero-scene__prop-img hero-scene__prop-img--halftone" src="./assets/hero-prop-board-halftone.png" alt="" decoding="async" />
+                </span>
+              </button>
+              <div class="hero-scene__intro">
+                <h2 class="hero-scene__headline">
+                  <span class="hero-scene__line">Welcome to</span>
+                  <span class="hero-scene__line hero-scene__line--name">
+                    <span class="hero-scene__name">Xu Ziqi&rsquo;s</span>
+                  </span>
+                  <span class="hero-scene__line">Portfolio Bakery.</span>
+                </h2>
+                <p class="hero-scene__body">
+                  This bakery of works features creations from 2025 to 2026 🌾, including graphic design 🎨,
+                  UI design 📱, interaction design ✨, games 🎮, and intelligent agents 🤖.
+                  Feel free to explore 🥐
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="site-content" id="siteContent" hidden>
+      <!-- ===================== WORK ===================== -->
+      <section class="pf-work" id="work">
+        <div class="pf-work__intro reveal">
+          <p class="pf-eyebrow">Selected work</p>
+          <h2 class="pf-h2">Things I made<br />while hungry.</h2>
+          <p class="pf-lead">Illustration, posters and visual design. A one-person studio fermenting cosy, edible-looking ideas.</p>
+        </div>
+
+        <article class="pf-project reveal" id="illustration">
+          <div class="pf-project__bar">
+            <h3 class="pf-project__title">Illustration</h3>
+            <span class="pf-project__meta">Procreate · 2024</span>
+          </div>
+          <div class="pf-gallery">
+            <a class="pf-tile pf-tile--tall grad-1" href="#illustration"><span class="pf-tile__cap">Bread Friends</span></a>
+            <a class="pf-tile grad-2" href="#illustration"><span class="pf-tile__cap">Morning Toast</span></a>
+            <a class="pf-tile grad-3" href="#illustration"><span class="pf-tile__cap">Sourdough Sky</span></a>
+            <a class="pf-tile pf-tile--wide grad-4" href="#illustration"><span class="pf-tile__cap">Crumb Study</span></a>
+            <a class="pf-tile grad-5" href="#illustration"><span class="pf-tile__cap">Jam Hours</span></a>
+          </div>
+        </article>
+
+        <article class="pf-project reveal" id="posters">
+          <div class="pf-project__bar">
+            <h3 class="pf-project__title">Personal Posters</h3>
+            <span class="pf-project__meta">Print · 2023-25</span>
+          </div>
+          <div class="pf-gallery">
+            <a class="pf-tile grad-6" href="#posters"><span class="pf-tile__cap">Knead</span></a>
+            <a class="pf-tile pf-tile--tall grad-3" href="#posters"><span class="pf-tile__cap">Proof &amp; Rise</span></a>
+            <a class="pf-tile grad-1" href="#posters"><span class="pf-tile__cap">Warm Type</span></a>
+            <a class="pf-tile pf-tile--wide grad-2" href="#posters"><span class="pf-tile__cap">Festival 88</span></a>
+          </div>
+        </article>
+
+        <article class="pf-project reveal" id="planetary">
+          <div class="pf-project__bar">
+            <h3 class="pf-project__title">Planetary Insights</h3>
+            <span class="pf-project__meta">Editorial · 2025</span>
+          </div>
+          <div class="pf-gallery">
+            <a class="pf-tile pf-tile--wide grad-5" href="#planetary"><span class="pf-tile__cap">Soft Orbit</span></a>
+            <a class="pf-tile grad-4" href="#planetary"><span class="pf-tile__cap">Little Moon</span></a>
+            <a class="pf-tile grad-6" href="#planetary"><span class="pf-tile__cap">Gravity Snack</span></a>
+            <a class="pf-tile pf-tile--tall grad-2" href="#planetary"><span class="pf-tile__cap">Cosmic Crumb</span></a>
+          </div>
+        </article>
+      </section>
+
+      <!-- ===================== ARCHIVE ===================== -->
+      <section class="pf-archive" id="archive">
+        <div class="pf-archive__head reveal">
+          <h2 class="pf-h2">Archive</h2>
+          <span class="pf-count">24 pieces</span>
+        </div>
+        <div class="pf-archive__grid">
+          <a class="pf-thumb grad-1" href="#archive"></a>
+          <a class="pf-thumb grad-3" href="#archive"></a>
+          <a class="pf-thumb grad-5" href="#archive"></a>
+          <a class="pf-thumb grad-2" href="#archive"></a>
+          <a class="pf-thumb grad-6" href="#archive"></a>
+          <a class="pf-thumb grad-4" href="#archive"></a>
+          <a class="pf-thumb grad-2" href="#archive"></a>
+          <a class="pf-thumb grad-5" href="#archive"></a>
+          <a class="pf-thumb grad-1" href="#archive"></a>
+          <a class="pf-thumb grad-4" href="#archive"></a>
+          <a class="pf-thumb grad-6" href="#archive"></a>
+          <a class="pf-thumb grad-3" href="#archive"></a>
+        </div>
+      </section>
+
+      <!-- ===================== ABOUT ===================== -->
+      <section class="pf-about" id="about">
+        <div class="pf-about__copy">
+          <div class="pf-about__bio">
+            <p class="pf-about__lede">
+              Hello, I’m <strong>Xu Ziqi</strong>, a digital media art student and visual designer from China.
+              I create warm, playful visual worlds where everyday moments feel a little more like freshly baked bread.
+            </p>
+            <p class="pf-about__lede">
+              Through visual design, interactive art, and AI-generated creation, I explore colour, storytelling,
+              character, and digital media.
+              <em>ferment</em> is where these ideas are left to rise, slowly taking shape.
+            </p>
+          </div>
+        </div>
+
+        <aside class="pf-about__info">
+          <button
+            class="pf-about__info-label pf-about__info-trigger"
+            type="button"
+            aria-expanded="false"
+            aria-controls="aboutInfoPanel"
+          >
+            Info
+          </button>
+          <ul class="pf-about__links">
+            <li><a href="#contact">Instagram: ferment.studio</a></li>
+            <li><a href="#contact">小红书: ferment_illust</a></li>
+            <li><a href="mailto:hello@ferment.studio">hello@ferment.studio</a></li>
+          </ul>
+        </aside>
+
+        <div class="pf-about-info" id="aboutInfoPanel" hidden aria-hidden="true">
+          <div class="pf-about-info__backdrop" id="aboutInfoBackdrop" aria-hidden="true"></div>
+          <aside
+            class="pf-about-info__panel"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="aboutInfoTitle"
+          >
+            <button class="pf-about-info__close" type="button" aria-label="Close info panel">
+              <span aria-hidden="true">✕</span>
+            </button>
+
+            <h2 class="pf-about-info__name" id="aboutInfoTitle">XU ZIQI</h2>
+            <img
+              class="pf-about-info__icon"
+              src="./assets/about-polaroid-bread.png"
+              alt=""
+              width="220"
+              height="235"
+              decoding="async"
+            />
+
+            <div class="pf-about-info__grid">
+              <section class="pf-about-info__block pf-about-info__block--edu">
+                <h3 class="pf-about-info__heading">Education</h3>
+                <ul class="pf-about-info__list">
+                  <li>
+                    <strong>Digital Media Art</strong>
+                    <span>Communication University of China</span>
+                    <span>Beijing, China · Undergraduate</span>
+                    <span>2025 – Present</span>
+                  </li>
+                  <li>
+                    <strong>Fine Arts Foundation</strong>
+                    <span>The Affiliated High School of China Academy of Art</span>
+                    <span>Hangzhou, China</span>
+                    <span>2021 – 2025</span>
+                  </li>
+                </ul>
+              </section>
+
+              <section class="pf-about-info__block pf-about-info__block--work">
+                <h3 class="pf-about-info__heading">Work Experience</h3>
+                <ul class="pf-about-info__list">
+                  <li>
+                    <strong>All-Media Editorial Intern</strong>
+                    <span>Suzhou Daily</span>
+                    <span>Suzhou, China</span>
+                    <span>Jan 2026 – Mar 2026</span>
+                  </li>
+                  <li>
+                    <strong>CDFN Volunteer</strong>
+                    <span>Academy of Arts &amp; Design, Tsinghua University</span>
+                    <span>Beijing, China</span>
+                    <span>Sep 2025 – Present</span>
+                  </li>
+                </ul>
+              </section>
+
+              <section class="pf-about-info__block pf-about-info__block--tools">
+                <h3 class="pf-about-info__heading">Tools</h3>
+                <ul class="pf-about-info__tags">
+                  <li>Illustrator</li>
+                  <li>Photoshop</li>
+                  <li>Figma</li>
+                  <li>After Effects</li>
+                  <li>Procreate</li>
+                  <li>TouchDesigner</li>
+                  <li>Processing</li>
+                  <li>VS Code</li>
+                  <li>AI Generation Tools</li>
+                </ul>
+              </section>
+
+              <section class="pf-about-info__block pf-about-info__block--skills">
+                <h3 class="pf-about-info__heading">Design Skills</h3>
+                <ul class="pf-about-info__tags">
+                  <li>Visual identity</li>
+                  <li>Character design</li>
+                  <li>Illustration</li>
+                  <li>Interactive art</li>
+                  <li>Generative design</li>
+                  <li>AI-generated creation</li>
+                  <li>Creative coding</li>
+                  <li>Digital storytelling</li>
+                  <li>Motion visual design</li>
+                </ul>
+              </section>
+            </div>
+          </aside>
+        </div>
+
+        <div class="pf-about__deco" aria-hidden="true">
+          <img
+            class="pf-about__deco-img"
+            src="./assets/about-footer-deco.png"
+            alt=""
+            width="1024"
+            height="509"
+            decoding="async"
+          />
+          <figure class="pf-about__polaroid">
+            <img
+              class="pf-about__polaroid-img"
+              src="./assets/about-polaroid.png"
+              alt=""
+              width="671"
+              height="802"
+              decoding="async"
+            />
+            <img
+              class="pf-about__polaroid-bread"
+              src="./assets/about-polaroid-bread.png"
+              alt=""
+              width="382"
+              height="407"
+              decoding="async"
+              draggable="false"
+            />
+          </figure>
+        </div>
+      </section>
+
+      <!-- ===================== CONTACT / FOOTER ===================== -->
+      <footer class="pf-footer" id="contact">
+        <div class="pf-footer__glow" aria-hidden="true"></div>
+        <img class="pf-footer__bread" src="./assets/bread.png" alt="" aria-hidden="true" />
+        <p class="pf-footer__kicker reveal">Got a tasty idea?</p>
+        <h2 class="pf-footer__cta reveal">Let’s bake<br />something together.</h2>
+        <a class="pf-mail reveal" href="mailto:hello@ferment.studio">hello@ferment.studio <span>→</span></a>
+        <nav class="pf-footer__links" aria-label="Social links">
+          <a href="#contact">Instagram ↗</a>
+          <a href="#contact">Behance ↗</a>
+          <a href="#contact">小红书 ↗</a>
+        </nav>
+        <div class="pf-footer__bottom">
+          <span>© 2026 XuZiqi</span>
+          <span>ferment, portfolio</span>
+        </div>
+      </footer>
+      </div>
+    </main>
+
+    <div class="bread-transition" id="breadTransition" hidden aria-hidden="true">
+      <svg class="bread-transition__overlay" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <filter id="breadRevealToBlack" color-interpolation-filters="sRGB">
+            <feColorMatrix
+              type="matrix"
+              values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0"
+            />
+          </filter>
+          <mask id="breadRevealMask" maskUnits="userSpaceOnUse">
+            <rect id="breadRevealMaskBg" fill="white" />
+            <g id="breadRevealGroup">
+              <image
+                id="breadRevealCutout"
+                href="./assets/bread.png"
+                filter="url(#breadRevealToBlack)"
+                preserveAspectRatio="xMidYMid meet"
+              />
+            </g>
+          </mask>
+        </defs>
+        <rect id="breadRevealVeil" width="100%" height="100%" fill="#fff" mask="url(#breadRevealMask)" />
+      </svg>
+    </div>
+
+    <div class="prop-transition" id="propTransition" hidden aria-hidden="true">
+      <video
+        class="prop-transition__video"
+        id="propTransitionVideo"
+        playsinline
+        preload="auto"
+        aria-hidden="true"
+      >
+        <source src="./assets/about_transition.mp4" type="video/mp4" />
+      </video>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="./bread-pixel.js"></script>
+    <script src="./text-pressure.js"></script>
+    <script src="./hero-bg-particles.js"></script>
+    <script src="./hero-scene.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>
