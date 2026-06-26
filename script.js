@@ -60,7 +60,11 @@ const breadRevealGroup = breadTransition?.querySelector('#breadRevealGroup');
 const breadRevealCutout = breadTransition?.querySelector('#breadRevealCutout');
 
 const BREAD_CUTOUT_ASPECT = 915 / 878;
-const BREAD_REVEAL_START_SCALE = 0.52;
+const BREAD_REVEAL_START_SCALE = 0.34;
+const BREAD_REVEAL_DURATION = 1.42;
+const BREAD_REVEAL_HOLD_MS = 140;
+const BREAD_REVEAL_FADE_MS = 720;
+const HERO_INTRO_REVEAL_LEAD = 1.05;
 
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -669,11 +673,17 @@ const SITE_VIEWS = {
 };
 
 const PROP_TRANSITION_VIDEOS = {
+  '#work': './assets/work_transition.mp4',
   '#about': './assets/about_transition.mp4',
+  '#contact': './assets/implement_transition.mp4',
 };
 
 const ABOUT_TEXT_LEAD = 2;
 const ABOUT_DECO_LEAD = 1;
+const WORK_TEXT_LEAD = 2;
+const WORK_DECO_LEAD = 1;
+const IMPLEMENT_TEXT_LEAD = 2;
+const IMPLEMENT_DECO_LEAD = 1.5;
 
 const propTransition = document.getElementById('propTransition');
 const propTransitionVideo = document.getElementById('propTransitionVideo');
@@ -910,6 +920,10 @@ function closeAboutInfoPanel() {
 let propTransitionActive = false;
 let aboutTextTimeline = null;
 let aboutDecoTimeline = null;
+let workVisualTimeline = null;
+let workTextTimeline = null;
+let implementDecoTimeline = null;
+let implementTextTimeline = null;
 
 function prepareAboutCopyWords() {
   const copy = document.querySelector('.pf-about__copy');
@@ -1093,76 +1107,195 @@ function layoutPropTransitionVideo() {
   propTransition.style.height = '100%';
 }
 
+function ensurePropTransitionVideoMuted() {
+  if (!propTransitionVideo) return;
+  propTransitionVideo.muted = true;
+  propTransitionVideo.defaultMuted = true;
+  propTransitionVideo.volume = 0;
+}
+
 function preloadPropTransitionVideo() {
-  if (!propTransitionVideo || propTransitionVideo.readyState >= HTMLMediaElement.HAVE_METADATA) return;
+  if (!propTransitionVideo) return;
+  ensurePropTransitionVideoMuted();
+  if (propTransitionVideo.readyState >= HTMLMediaElement.HAVE_METADATA) return;
   propTransitionVideo.load();
 }
 
-function playPropTransitionVideo(src) {
+function playPropTransitionVideo(src, href = '#about') {
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reducedMotion || !propTransition || !propTransitionVideo || !src) {
     return Promise.resolve();
   }
 
-  return new Promise((resolve) => {
-    propTransitionActive = true;
-    document.body.classList.add('is-prop-transition');
-    setSiteView('#about');
-    let aboutTextStarted = false;
-    let aboutDecoStarted = false;
+    const isAbout = href === '#about';
+    const isWork = href === '#work';
+    const isImplement = href === '#contact';
 
-    const triggerAboutText = () => {
-      if (aboutTextStarted) return;
-      aboutTextStarted = true;
-      playAboutTextEntrance();
-    };
+    return new Promise((resolve) => {
+      propTransitionActive = true;
+      if (isWork) resetWorkEntrance();
+      if (isImplement) resetImplementEntrance();
+      document.body.classList.add('is-prop-transition');
+      setSiteView(href);
+      let aboutTextStarted = false;
+      let aboutDecoStarted = false;
+      let workTextStarted = false;
+      let workVisualStarted = false;
+      let implementTextStarted = false;
+      let implementDecoStarted = false;
 
-    const triggerAboutDeco = () => {
-      if (aboutDecoStarted) return;
-      aboutDecoStarted = true;
-      playAboutDecoEntrance();
-    };
-
-    const maybeTriggerAboutEntrance = () => {
-      const duration = propTransitionVideo.duration;
-      if (!Number.isFinite(duration) || duration <= 0) return;
-      const remaining = duration - propTransitionVideo.currentTime;
-      if (remaining <= ABOUT_TEXT_LEAD) triggerAboutText();
-      if (remaining <= ABOUT_DECO_LEAD) triggerAboutDeco();
-    };
-
-    const finish = () => {
-      propTransitionVideo.removeEventListener('timeupdate', maybeTriggerAboutEntrance);
-      propTransitionVideo.pause();
-      propTransitionVideo.onloadeddata = null;
-      propTransitionVideo.onended = null;
-      propTransitionVideo.onerror = null;
-      propTransition.classList.remove('is-active');
-      propTransition.hidden = true;
-      propTransition.setAttribute('aria-hidden', 'true');
-      document.body.classList.remove('is-prop-transition');
-      propTransitionActive = false;
-
-      if (!aboutTextStarted) {
-        playAboutTextEntrance({ immediate: true });
+      const triggerAboutText = () => {
+        if (!isAbout || aboutTextStarted) return;
         aboutTextStarted = true;
-      }
-      if (!aboutDecoStarted) {
-        playAboutDecoEntrance({ immediate: true });
+        playAboutTextEntrance();
+      };
+
+      const triggerAboutDeco = () => {
+        if (!isAbout || aboutDecoStarted) return;
         aboutDecoStarted = true;
-      }
+        playAboutDecoEntrance();
+      };
 
-      document.body.classList.add('is-about-revealed');
-      document.body.classList.remove('is-about-entrance', 'is-about-text-entrance');
+      const triggerWorkText = () => {
+        if (!isWork || workTextStarted) return;
+        workTextStarted = true;
+        playWorkTextEntrance();
+      };
 
-      if (typeof gsap !== 'undefined' && propTransition) {
-        gsap.set(propTransition, { clearProps: 'opacity' });
-      }
+      const triggerWorkVisual = () => {
+        if (!isWork || workVisualStarted) return;
+        workVisualStarted = true;
+        playWorkVisualEntrance();
+      };
 
-      resolve();
-    };
+      const triggerImplementText = () => {
+        if (!isImplement || implementTextStarted) return;
+        implementTextStarted = true;
+        playImplementTextEntrance();
+      };
+
+      const triggerImplementDeco = () => {
+        if (!isImplement || implementDecoStarted) return;
+        implementDecoStarted = true;
+        playImplementDecoEntrance();
+      };
+
+      const maybeTriggerAboutEntrance = () => {
+        if (!isAbout) return;
+        const duration = propTransitionVideo.duration;
+        if (!Number.isFinite(duration) || duration <= 0) return;
+        const remaining = duration - propTransitionVideo.currentTime;
+        if (remaining <= ABOUT_TEXT_LEAD) triggerAboutText();
+        if (remaining <= ABOUT_DECO_LEAD) triggerAboutDeco();
+      };
+
+      const maybeTriggerWorkEntrance = () => {
+        if (!isWork) return;
+        const duration = propTransitionVideo.duration;
+        if (!Number.isFinite(duration) || duration <= 0) return;
+        const remaining = duration - propTransitionVideo.currentTime;
+        if (remaining <= WORK_TEXT_LEAD) triggerWorkText();
+        if (remaining <= WORK_DECO_LEAD) triggerWorkVisual();
+      };
+
+      const maybeTriggerImplementEntrance = () => {
+        if (!isImplement) return;
+        const duration = propTransitionVideo.duration;
+        if (!Number.isFinite(duration) || duration <= 0) return;
+        const remaining = duration - propTransitionVideo.currentTime;
+        if (remaining <= IMPLEMENT_TEXT_LEAD) triggerImplementText();
+        if (remaining <= IMPLEMENT_DECO_LEAD) triggerImplementDeco();
+      };
+
+      const maybeTriggerEntrance = () => {
+        maybeTriggerAboutEntrance();
+        maybeTriggerWorkEntrance();
+        maybeTriggerImplementEntrance();
+      };
+
+      const finish = () => {
+        propTransitionVideo.removeEventListener('timeupdate', maybeTriggerEntrance);
+        propTransitionVideo.removeEventListener('playing', onVideoPlaying);
+        propTransitionVideo.pause();
+        propTransitionVideo.onloadeddata = null;
+        propTransitionVideo.onended = null;
+        propTransitionVideo.onerror = null;
+        propTransition.classList.remove('is-active');
+        propTransition.hidden = true;
+        propTransition.setAttribute('aria-hidden', 'true');
+        propTransitionActive = false;
+
+        if (isAbout) {
+          if (!aboutTextStarted) {
+            playAboutTextEntrance({ immediate: true });
+            aboutTextStarted = true;
+          }
+          if (!aboutDecoStarted) {
+            playAboutDecoEntrance({ immediate: true });
+            aboutDecoStarted = true;
+          }
+
+          document.body.classList.add('is-about-revealed');
+          document.body.classList.remove('is-about-entrance', 'is-about-text-entrance');
+        }
+
+        if (isWork) {
+          if (!workTextStarted) {
+            playWorkTextEntrance({ immediate: true });
+            workTextStarted = true;
+          }
+          if (!workVisualStarted) {
+            playWorkVisualEntrance({ immediate: true });
+            workVisualStarted = true;
+          }
+
+          document.body.classList.add('is-work-revealed');
+          document.body.classList.remove('is-work-visual-entrance', 'is-work-text-entrance');
+          window.initWorkStickers?.();
+        }
+
+        if (isImplement) {
+          if (!implementTextStarted) {
+            playImplementTextEntrance({ immediate: true });
+            implementTextStarted = true;
+          }
+          if (!implementDecoStarted) {
+            playImplementDecoEntrance({ immediate: true });
+            implementDecoStarted = true;
+          }
+
+          document.body.classList.add('is-implement-revealed');
+          document.body.classList.remove('is-implement-deco-entrance', 'is-implement-text-entrance');
+          window.initImplementStickers?.();
+        }
+
+        document.body.classList.remove('is-prop-transition');
+
+        if (typeof gsap !== 'undefined' && propTransition) {
+          gsap.set(propTransition, { clearProps: 'opacity' });
+        }
+
+        resolve();
+      };
+
+      const onVideoPlaying = () => {
+        maybeTriggerEntrance();
+        const duration = propTransitionVideo.duration;
+        if (!Number.isFinite(duration) || duration <= 0) return;
+
+        if (isWork) {
+          if (duration <= WORK_TEXT_LEAD + 0.35) triggerWorkText();
+          if (duration <= WORK_DECO_LEAD + 0.35) triggerWorkVisual();
+        }
+
+        if (isImplement) {
+          if (duration <= IMPLEMENT_TEXT_LEAD + 0.35) triggerImplementText();
+          if (duration <= IMPLEMENT_DECO_LEAD + 0.35) triggerImplementDeco();
+        }
+      };
 
     const startPlayback = () => {
+      ensurePropTransitionVideoMuted();
       layoutPropTransitionVideo();
       propTransition.hidden = false;
       propTransition.removeAttribute('aria-hidden');
@@ -1172,7 +1305,8 @@ function playPropTransitionVideo(src) {
       }
       propTransitionVideo.onended = finish;
       propTransitionVideo.onerror = finish;
-      propTransitionVideo.addEventListener('timeupdate', maybeTriggerAboutEntrance);
+      propTransitionVideo.addEventListener('timeupdate', maybeTriggerEntrance);
+      propTransitionVideo.addEventListener('playing', onVideoPlaying, { once: true });
       propTransitionVideo.play().catch(finish);
     };
 
@@ -1181,8 +1315,11 @@ function playPropTransitionVideo(src) {
       startPlayback();
     };
 
+    ensurePropTransitionVideoMuted();
+
     if (propTransitionVideo.src !== src) {
       propTransitionVideo.src = src;
+      ensurePropTransitionVideoMuted();
     }
 
     if (propTransitionVideo.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
@@ -1203,6 +1340,275 @@ function playPropTransitionVideo(src) {
 
 function isPropTransitionActive() {
   return propTransitionActive;
+}
+
+function getWorkBlurTitle() {
+  return document.querySelector('.pf-work__title');
+}
+
+function initWorkBlurTitle() {
+  const title = getWorkBlurTitle();
+  if (!title || title.dataset.blurReady === '1') return;
+  title.dataset.blurReady = '1';
+  window.initBlurText?.(title, { autoplay: false });
+}
+
+function playWorkBlurTitle({ immediate = false } = {}) {
+  const title = getWorkBlurTitle();
+  if (!title) return;
+
+  if (title.dataset.blurPrepared) {
+    window.resetBlurText?.(title);
+    delete title.dataset.blurReady;
+  }
+
+  initWorkBlurTitle();
+  window.playBlurText?.(title, { immediate });
+}
+
+function resetWorkEntrance() {
+  window.destroyWorkStickers?.();
+
+  document.body.classList.remove('is-work-visual-entrance', 'is-work-text-entrance', 'is-work-revealed');
+
+  if (workVisualTimeline) {
+    workVisualTimeline.kill();
+    workVisualTimeline = null;
+  }
+  if (workTextTimeline) {
+    workTextTimeline.kill();
+    workTextTimeline = null;
+  }
+
+  const visual = document.querySelector('.pf-work__visual');
+  const intro = document.querySelector('.pf-work__intro');
+  const eyebrow = intro?.querySelector('.pf-eyebrow');
+  const lead = intro?.querySelector('.pf-lead');
+
+  resetWorkBlurTitle();
+
+  if (typeof gsap !== 'undefined') {
+    if (visual) gsap.set(visual, { clearProps: 'transform' });
+    if (eyebrow) gsap.set(eyebrow, { clearProps: 'all' });
+    if (lead) gsap.set(lead, { clearProps: 'all' });
+  }
+}
+
+function playWorkVisualEntrance({ immediate = false } = {}) {
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const visual = document.querySelector('.pf-work__visual');
+  if (!visual) return;
+
+  document.body.classList.add('is-work-visual-entrance');
+
+  if (reducedMotion || immediate || typeof gsap === 'undefined') {
+    if (typeof gsap !== 'undefined') gsap.set(visual, { clearProps: 'transform' });
+    return;
+  }
+
+  if (workVisualTimeline) workVisualTimeline.kill();
+
+  gsap.set(visual, { y: -120, force3D: true });
+
+  workVisualTimeline = gsap.timeline({
+    onComplete: () => {
+      gsap.set(visual, { clearProps: 'transform' });
+      workVisualTimeline = null;
+    },
+  });
+
+  workVisualTimeline.to(visual, {
+    y: 0,
+    duration: 0.92,
+    ease: 'back.out(1.15)',
+  }, 0);
+}
+
+function playWorkTextEntrance({ immediate = false } = {}) {
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const intro = document.querySelector('.pf-work__intro');
+  const eyebrow = intro?.querySelector('.pf-eyebrow');
+  const lead = intro?.querySelector('.pf-lead');
+
+  if (!intro) return;
+
+  document.body.classList.add('is-work-text-entrance');
+  playWorkBlurTitle({ immediate });
+
+  if (reducedMotion || immediate || typeof gsap === 'undefined') {
+    if (typeof gsap !== 'undefined') {
+      if (eyebrow) gsap.set(eyebrow, { opacity: 1, y: 0 });
+      if (lead) gsap.set(lead, { opacity: 1, y: 0 });
+    }
+    return;
+  }
+
+  if (workTextTimeline) workTextTimeline.kill();
+
+  if (eyebrow) gsap.set(eyebrow, { opacity: 0, y: -22 });
+  if (lead) gsap.set(lead, { opacity: 0, y: 18 });
+
+  workTextTimeline = gsap.timeline({
+    onComplete: () => {
+      workTextTimeline = null;
+    },
+  });
+
+  if (eyebrow) {
+    workTextTimeline.to(eyebrow, {
+      opacity: 1,
+      y: 0,
+      duration: 0.55,
+      ease: 'power2.out',
+    }, 0);
+  }
+
+  if (lead) {
+    workTextTimeline.to(lead, {
+      opacity: 1,
+      y: 0,
+      duration: 0.58,
+      ease: 'power2.out',
+    }, 0.12);
+  }
+}
+
+function playWorkEntranceAnimation({ immediate = false } = {}) {
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reducedMotion) immediate = true;
+
+  document.body.classList.add('is-work-revealed');
+  playWorkVisualEntrance({ immediate });
+  playWorkTextEntrance({ immediate });
+  window.initWorkStickers?.();
+}
+
+function resetImplementEntrance() {
+  window.destroyImplementStickers?.();
+
+  document.body.classList.remove(
+    'is-implement-deco-entrance',
+    'is-implement-text-entrance',
+    'is-implement-revealed'
+  );
+
+  if (implementDecoTimeline) {
+    implementDecoTimeline.kill();
+    implementDecoTimeline = null;
+  }
+  if (implementTextTimeline) {
+    implementTextTimeline.kill();
+    implementTextTimeline = null;
+  }
+
+  const label = document.querySelector('.pf-implement__label');
+  const mail = document.querySelector('.pf-implement__mail');
+  const deco = document.querySelector('.pf-implement__deco');
+
+  if (typeof gsap !== 'undefined') {
+    if (label) gsap.set(label, { clearProps: 'all' });
+    if (mail) gsap.set(mail, { clearProps: 'all' });
+    if (deco) gsap.set(deco, { clearProps: 'transform' });
+  }
+}
+
+function playImplementDecoEntrance({ immediate = false } = {}) {
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const deco = document.querySelector('.pf-implement__deco');
+  if (!deco) return;
+
+  document.body.classList.add('is-implement-deco-entrance');
+
+  if (reducedMotion || immediate || typeof gsap === 'undefined') {
+    if (typeof gsap !== 'undefined') gsap.set(deco, { clearProps: 'transform' });
+    return;
+  }
+
+  if (implementDecoTimeline) implementDecoTimeline.kill();
+
+  gsap.set(deco, { y: 140, force3D: true });
+
+  implementDecoTimeline = gsap.timeline({
+    onComplete: () => {
+      gsap.set(deco, { clearProps: 'transform' });
+      implementDecoTimeline = null;
+    },
+  });
+
+  implementDecoTimeline.to(deco, {
+    y: 0,
+    duration: 0.92,
+    ease: 'back.out(1.12)',
+  }, 0);
+}
+
+function playImplementTextEntrance({ immediate = false } = {}) {
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const label = document.querySelector('.pf-implement__label');
+  const mail = document.querySelector('.pf-implement__mail');
+  if (!label && !mail) return;
+
+  document.body.classList.add('is-implement-text-entrance');
+
+  if (reducedMotion || immediate || typeof gsap === 'undefined') {
+    if (typeof gsap !== 'undefined') {
+      if (label) gsap.set(label, { opacity: 1, x: 0, y: 0 });
+      if (mail) gsap.set(mail, { opacity: 1, x: 0, y: 0 });
+    }
+    return;
+  }
+
+  if (implementTextTimeline) implementTextTimeline.kill();
+
+  if (label) gsap.set(label, { opacity: 0, x: -28, y: 18 });
+  if (mail) gsap.set(mail, { opacity: 0, x: -36, y: 28 });
+
+  implementTextTimeline = gsap.timeline({
+    onComplete: () => {
+      implementTextTimeline = null;
+    },
+  });
+
+  if (label) {
+    implementTextTimeline.to(label, {
+      opacity: 1,
+      x: 0,
+      y: 0,
+      duration: 0.58,
+      ease: 'power2.out',
+    }, 0);
+  }
+
+  if (mail) {
+    implementTextTimeline.to(mail, {
+      opacity: 1,
+      x: 0,
+      y: 0,
+      duration: 0.72,
+      ease: 'power3.out',
+    }, 0.1);
+  }
+}
+
+function playImplementEntranceAnimation({ immediate = false } = {}) {
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reducedMotion) immediate = true;
+
+  document.body.classList.add('is-implement-revealed');
+  playImplementTextEntrance({ immediate });
+  playImplementDecoEntrance({ immediate });
+  window.initImplementStickers?.();
+}
+
+function resetWorkBlurTitle() {
+  const title = getWorkBlurTitle();
+  if (!title) return;
+  window.resetBlurText?.(title);
+  delete title.dataset.blurReady;
+}
+
+function closeWorkPortfolioLightbox() {
+  window.closePortfolioLightbox?.();
 }
 
 function jumpNavLetters(href) {
@@ -1227,6 +1633,10 @@ function setSiteView(href) {
   const panel = document.querySelector(href);
   if (panel) panel.scrollTop = 0;
   window.scrollTo(0, 0);
+
+  if (view === 'work') {
+    window.refreshWorkPortfolioReveal?.();
+  }
 }
 
 function returnToHeroScene() {
@@ -1234,6 +1644,9 @@ function returnToHeroScene() {
 
   closeMenu();
   resetAboutEntrance();
+  resetWorkEntrance();
+  resetImplementEntrance();
+  closeWorkPortfolioLightbox();
   document.body.classList.remove('is-prop-transition', 'site-view-work', 'site-view-about', 'site-view-implement', 'site-scrolled');
   document.body.classList.add('site-view-hero');
   window.scrollTo(0, 0);
@@ -1248,8 +1661,17 @@ async function navigatePortfolioSection(href, { viaProp = false, anchor = null }
     resetAboutEntrance();
   }
 
+  if (href !== '#work') {
+    resetWorkEntrance();
+    closeWorkPortfolioLightbox();
+  }
+
+  if (href !== '#contact') {
+    resetImplementEntrance();
+  }
+
   if (viaProp && PROP_TRANSITION_VIDEOS[href]) {
-    await playPropTransitionVideo(PROP_TRANSITION_VIDEOS[href]);
+    await playPropTransitionVideo(PROP_TRANSITION_VIDEOS[href], href);
     if (href === '#about') {
       if (!document.body.classList.contains('site-view-about')) {
         setSiteView(href);
@@ -1257,6 +1679,12 @@ async function navigatePortfolioSection(href, { viaProp = false, anchor = null }
       }
     } else {
       setSiteView(href);
+      if (href === '#work' && !document.body.classList.contains('is-work-revealed')) {
+        playWorkEntranceAnimation({ immediate: true });
+      }
+      if (href === '#contact' && !document.body.classList.contains('is-implement-revealed')) {
+        playImplementEntranceAnimation({ immediate: true });
+      }
     }
     return;
   }
@@ -1265,6 +1693,10 @@ async function navigatePortfolioSection(href, { viaProp = false, anchor = null }
 
   if (href === '#about') {
     playAboutEntranceAnimation();
+  } else if (href === '#work') {
+    playWorkEntranceAnimation();
+  } else if (href === '#contact') {
+    playImplementEntranceAnimation();
   }
 }
 
@@ -1312,6 +1744,8 @@ function revealPortfolioContent() {
   if (heroPlaceholder) heroPlaceholder.removeAttribute('aria-hidden');
   initHeroScene?.(heroPlaceholder);
   preloadPropTransitionVideo();
+  initWorkBlurTitle();
+  initWorkPortfolio?.();
   document.querySelectorAll('.site-content .reveal').forEach((el) => observer.observe(el));
   updateSiteScrollState();
   window.scrollTo(0, 0);
@@ -1353,7 +1787,7 @@ function animateBreadRevealCutout(cx, cy, startW, coverScale) {
   return new Promise((resolve) => {
     gsap.to(state, {
       scale: coverScale,
-      duration: 0.92,
+      duration: BREAD_REVEAL_DURATION,
       ease: 'power3.inOut',
       onUpdate() {
         breadRevealGroup.setAttribute('transform', `translate(${cx} ${cy}) scale(${state.scale})`);
@@ -1394,18 +1828,33 @@ async function enterSite() {
 
   revealPortfolioContent();
 
+  let heroIntroStarted = false;
+  const startHeroIntro = () => {
+    if (heroIntroStarted) return;
+    heroIntroStarted = true;
+    window.playHeroSceneIntro?.();
+  };
+
+  const introDelayMs = Math.max(
+    0,
+    Math.round((BREAD_REVEAL_DURATION - HERO_INTRO_REVEAL_LEAD) * 1000)
+  );
+  const introTimer = window.setTimeout(startHeroIntro, introDelayMs);
+
   await animateBreadRevealCutout(cx, cy, startW, coverScale);
-  await wait(80);
+  window.clearTimeout(introTimer);
+  startHeroIntro();
+
+  await wait(BREAD_REVEAL_HOLD_MS);
 
   breadTransition.classList.add('is-out');
-  await wait(460);
+  await wait(BREAD_REVEAL_FADE_MS);
 
   breadTransition.classList.remove('is-out');
   breadTransition.hidden = true;
   breadTransition.setAttribute('aria-hidden', 'true');
   document.body.classList.remove('is-entering');
   breadRevealGroup.setAttribute('transform', 'translate(0 0) scale(1)');
-  window.playHeroSceneIntro?.();
 }
 
 document.addEventListener('wheel', handleHomeWheel, { passive: false });

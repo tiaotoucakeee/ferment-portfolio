@@ -14,6 +14,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./sticker-peel.css" />
   </head>
   <body class="is-home-only">
     <header class="site-header">
@@ -24,7 +25,7 @@
       <nav class="site-header__nav" aria-label="Primary navigation">
         <a class="nav-item" href="#about"><span class="nav-jump" aria-hidden="true"><span>a</span><span>b</span><span>o</span><span>u</span><span>t</span></span><span class="visually-hidden">about</span></a>
         <a class="nav-item" href="#work"><span class="nav-jump" aria-hidden="true"><span>w</span><span>o</span><span>r</span><span>k</span></span><span class="visually-hidden">work</span></a>
-        <a class="nav-item" href="#contact"><span class="nav-jump" aria-hidden="true"><span>i</span><span>m</span><span>p</span><span>l</span><span>e</span><span>m</span><span>e</span><span>n</span><span>t</span></span><span class="visually-hidden">implement</span></a>
+        <a class="nav-item" href="#contact"><span class="nav-jump" aria-hidden="true"><span>c</span><span>o</span><span>n</span><span>n</span><span>e</span><span>c</span><span>t</span></span><span class="visually-hidden">connect</span></a>
       </nav>
     </header>
 
@@ -43,7 +44,7 @@
         <nav class="menu__links" aria-label="Menu">
           <a href="#work"><span class="menu__bullet" aria-hidden="true"></span><span class="menu__txt">work</span></a>
           <a href="#about"><span class="menu__bullet" aria-hidden="true"></span><span class="menu__txt">about</span></a>
-          <a href="#contact"><span class="menu__bullet" aria-hidden="true"></span><span class="menu__txt">implement</span></a>
+          <a href="#contact"><span class="menu__bullet" aria-hidden="true"></span><span class="menu__txt">connect</span></a>
         </nav>
 
         <div class="menu__foot">
@@ -184,7 +185,7 @@
                   <img class="hero-scene__prop-img hero-scene__prop-img--halftone" src="./assets/hero-prop-counter-halftone.png" alt="" decoding="async" />
                 </span>
               </button>
-              <button type="button" class="hero-scene__prop hero-scene__prop--board" aria-label="Implementation">
+              <button type="button" class="hero-scene__prop hero-scene__prop--board" aria-label="Connect">
                 <span class="hero-scene__prop-art">
                   <img class="hero-scene__prop-img hero-scene__prop-img--default" src="./assets/hero-prop-board.png" alt="" decoding="async" />
                   <img class="hero-scene__prop-img hero-scene__prop-img--halftone" src="./assets/hero-prop-board-halftone.png" alt="" decoding="async" />
@@ -212,51 +213,44 @@
       <div class="site-content" id="siteContent" hidden>
       <!-- ===================== WORK ===================== -->
       <section class="pf-work" id="work">
-        <div class="pf-work__intro reveal">
-          <p class="pf-eyebrow">Selected work</p>
-          <h2 class="pf-h2">Things I made<br />while hungry.</h2>
-          <p class="pf-lead">Illustration, posters and visual design. A one-person studio fermenting cosy, edible-looking ideas.</p>
+        <header class="pf-work__hero">
+          <div class="pf-work__visual" aria-hidden="true">
+            <img
+              class="pf-work__deco"
+              src="./assets/work/work-deco.png"
+              alt=""
+              width="232"
+              height="186"
+              decoding="async"
+            />
+            <img
+              class="pf-work__folder"
+              src="./assets/work/work-folder.png"
+              alt=""
+              width="656"
+              height="540"
+              decoding="async"
+            />
+          </div>
+          <div class="pf-work__intro">
+            <p class="pf-eyebrow">Selected work</p>
+            <h2
+              class="pf-h2 pf-work__title blur-text-host"
+              data-blur-direction="top"
+              data-blur-delay="150"
+              data-blur-step-duration="0.35"
+            >Things I made<br />while <span class="pf-work__title-hungry">hungry.</span></h2>
+            <p class="pf-lead">Illustration, posters and visual design. A one-person studio fermenting cosy, edible-looking ideas.</p>
+          </div>
+        </header>
+
+        <div class="pf-work__gallery-stage">
+          <div class="pf-work__stickers" id="workStickers" aria-hidden="true"></div>
+          <div class="pf-work__gallery" id="workPortfolioGrid" aria-label="Portfolio works">
+            <div class="pf-work__col pf-work__col--a" id="workPortfolioColA"></div>
+            <div class="pf-work__col pf-work__col--b" id="workPortfolioColB"></div>
+          </div>
         </div>
-
-        <article class="pf-project reveal" id="illustration">
-          <div class="pf-project__bar">
-            <h3 class="pf-project__title">Illustration</h3>
-            <span class="pf-project__meta">Procreate · 2024</span>
-          </div>
-          <div class="pf-gallery">
-            <a class="pf-tile pf-tile--tall grad-1" href="#illustration"><span class="pf-tile__cap">Bread Friends</span></a>
-            <a class="pf-tile grad-2" href="#illustration"><span class="pf-tile__cap">Morning Toast</span></a>
-            <a class="pf-tile grad-3" href="#illustration"><span class="pf-tile__cap">Sourdough Sky</span></a>
-            <a class="pf-tile pf-tile--wide grad-4" href="#illustration"><span class="pf-tile__cap">Crumb Study</span></a>
-            <a class="pf-tile grad-5" href="#illustration"><span class="pf-tile__cap">Jam Hours</span></a>
-          </div>
-        </article>
-
-        <article class="pf-project reveal" id="posters">
-          <div class="pf-project__bar">
-            <h3 class="pf-project__title">Personal Posters</h3>
-            <span class="pf-project__meta">Print · 2023-25</span>
-          </div>
-          <div class="pf-gallery">
-            <a class="pf-tile grad-6" href="#posters"><span class="pf-tile__cap">Knead</span></a>
-            <a class="pf-tile pf-tile--tall grad-3" href="#posters"><span class="pf-tile__cap">Proof &amp; Rise</span></a>
-            <a class="pf-tile grad-1" href="#posters"><span class="pf-tile__cap">Warm Type</span></a>
-            <a class="pf-tile pf-tile--wide grad-2" href="#posters"><span class="pf-tile__cap">Festival 88</span></a>
-          </div>
-        </article>
-
-        <article class="pf-project reveal" id="planetary">
-          <div class="pf-project__bar">
-            <h3 class="pf-project__title">Planetary Insights</h3>
-            <span class="pf-project__meta">Editorial · 2025</span>
-          </div>
-          <div class="pf-gallery">
-            <a class="pf-tile pf-tile--wide grad-5" href="#planetary"><span class="pf-tile__cap">Soft Orbit</span></a>
-            <a class="pf-tile grad-4" href="#planetary"><span class="pf-tile__cap">Little Moon</span></a>
-            <a class="pf-tile grad-6" href="#planetary"><span class="pf-tile__cap">Gravity Snack</span></a>
-            <a class="pf-tile pf-tile--tall grad-2" href="#planetary"><span class="pf-tile__cap">Cosmic Crumb</span></a>
-          </div>
-        </article>
       </section>
 
       <!-- ===================== ARCHIVE ===================== -->
@@ -436,22 +430,33 @@
         </div>
       </section>
 
-      <!-- ===================== CONTACT / FOOTER ===================== -->
-      <footer class="pf-footer" id="contact">
-        <div class="pf-footer__glow" aria-hidden="true"></div>
-        <img class="pf-footer__bread" src="./assets/bread.png" alt="" aria-hidden="true" />
-        <p class="pf-footer__kicker reveal">Got a tasty idea?</p>
-        <h2 class="pf-footer__cta reveal">Let’s bake<br />something together.</h2>
-        <a class="pf-mail reveal" href="mailto:hello@ferment.studio">hello@ferment.studio <span>→</span></a>
-        <nav class="pf-footer__links" aria-label="Social links">
-          <a href="#contact">Instagram ↗</a>
-          <a href="#contact">Behance ↗</a>
-          <a href="#contact">小红书 ↗</a>
-        </nav>
-        <div class="pf-footer__bottom">
-          <span>© 2026 XuZiqi</span>
-          <span>ferment, portfolio</span>
+      <!-- ===================== IMPLEMENT / CONTACT ===================== -->
+      <footer class="pf-implement" id="contact">
+        <p class="pf-implement__label">contact</p>
+        <div class="pf-implement__content">
+          <a
+            class="pf-implement__mail"
+            href="mailto:m13912630673@163.com"
+            aria-label="Send email to m13912630673@163.com"
+          >
+            <span class="pf-implement__line">
+              <span class="pf-implement__user">m13912630673</span><span class="pf-implement__at" aria-hidden="true">@</span>
+            </span>
+            <span class="pf-implement__line">
+              <span class="pf-implement__domain">163</span><span class="pf-implement__dot" aria-hidden="true">·</span><span class="pf-implement__tld">com</span>
+            </span>
+          </a>
         </div>
+        <div class="pf-implement__stickers" id="implementStickers" aria-hidden="true"></div>
+        <img
+          class="pf-implement__deco"
+          src="./assets/implement-board-deco.png"
+          alt=""
+          width="790"
+          height="681"
+          decoding="async"
+          aria-hidden="true"
+        />
       </footer>
       </div>
     </main>
@@ -486,6 +491,7 @@
         class="prop-transition__video"
         id="propTransitionVideo"
         playsinline
+        muted
         preload="auto"
         aria-hidden="true"
       >
@@ -493,11 +499,35 @@
       </video>
     </div>
 
+    <div class="pf-lightbox" id="pfLightbox" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-label="Portfolio preview">
+      <div class="pf-lightbox__backdrop" id="pfLightboxBackdrop" aria-hidden="true"></div>
+      <button type="button" class="pf-lightbox__close" id="pfLightboxClose" aria-label="Close preview">
+        <span aria-hidden="true">✕</span>
+      </button>
+      <figure class="pf-lightbox__frame">
+        <img class="pf-lightbox__img" id="pfLightboxImg" alt="" />
+        <figcaption class="pf-lightbox__cap" id="pfLightboxCap"></figcaption>
+      </figure>
+    </div>
+
+    <div class="pf-qr-popup" id="implementQrPopup" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-label="QR code">
+      <div class="pf-qr-popup__backdrop" id="implementQrBackdrop" aria-hidden="true"></div>
+      <figure class="pf-qr-popup__frame" id="implementQrFrame">
+        <img class="pf-qr-popup__img" id="implementQrImg" alt="" width="360" height="360" decoding="async" />
+      </figure>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Draggable.min.js"></script>
     <script src="./bread-pixel.js"></script>
     <script src="./text-pressure.js"></script>
     <script src="./hero-bg-particles.js"></script>
     <script src="./hero-scene.js"></script>
+    <script src="./blur-text.js"></script>
+    <script src="./work-portfolio.js"></script>
+    <script src="./sticker-peel.js"></script>
+    <script src="./implement-stickers.js"></script>
+    <script src="./work-stickers.js"></script>
     <script src="./script.js"></script>
   </body>
 </html>

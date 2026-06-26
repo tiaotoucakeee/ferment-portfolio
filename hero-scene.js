@@ -157,7 +157,11 @@ function initHeroScene(root) {
     'hero-scene__prop--board': '#contact',
   };
 
-  const propTransitionTargets = new Set(['hero-scene__prop--counter']);
+  const propTransitionTargets = new Set([
+    'hero-scene__prop--desk',
+    'hero-scene__prop--counter',
+    'hero-scene__prop--board',
+  ]);
 
   root.querySelectorAll('.hero-scene__prop').forEach((btn) => {
     const targetClass = [...btn.classList].find((name) => propTargets[name]);
